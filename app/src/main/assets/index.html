@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Felix Agent 第一周</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app" class="app-shell">
+    <header class="topbar">
+      <div>
+        <div class="kicker">Week 1</div>
+        <h1>制造业数据库建模</h1>
+      </div>
+      <button class="icon-button" type="button" data-action="open-toc" aria-label="章节">
+        <span></span><span></span><span></span>
+      </button>
+    </header>
+
+    <nav class="tabs" aria-label="学习区域">
+      <button class="tab is-active" type="button" data-view="course">课程</button>
+      <button class="tab" type="button" data-view="english">英文</button>
+      <button class="tab" type="button" data-view="vocab">词本</button>
+      <button class="tab" type="button" data-view="notes">笔记</button>
+    </nav>
+
+    <main id="main" tabindex="-1">
+      <section id="course-view" class="view is-active" aria-label="课程正文"></section>
+      <section id="english-view" class="view" aria-label="英文学习"></section>
+      <section id="vocab-view" class="view" aria-label="词本"></section>
+      <section id="notes-view" class="view" aria-label="收藏和笔记"></section>
+    </main>
+  </div>
+
+  <aside id="toc-panel" class="side-panel" aria-hidden="true">
+    <div class="panel-head">
+      <h2>章节</h2>
+      <button class="plain-button" type="button" data-action="close-toc">关闭</button>
+    </div>
+    <div id="toc-list" class="toc-list"></div>
+  </aside>
+
+  <div id="note-sheet" class="sheet" aria-hidden="true">
+    <div class="sheet-card" role="dialog" aria-modal="true" aria-label="段落笔记">
+      <div class="sheet-head">
+        <h2>段落笔记</h2>
+        <button class="plain-button" type="button" data-action="close-note">关闭</button>
+      </div>
+      <p id="note-source" class="note-source"></p>
+      <label for="note-input">我的理解</label>
+      <textarea id="note-input" rows="5" placeholder="写下这一段对项目、面试或代码实现的启发。"></textarea>
+      <div class="sheet-actions">
+        <button class="secondary-button" type="button" data-action="remove-note">移除收藏</button>
+        <button class="primary-button" type="button" data-action="save-note">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <script src="content-week1.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
