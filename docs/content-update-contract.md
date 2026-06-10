@@ -19,6 +19,8 @@ Each week payload should include:
 - `level`
 - `outcome`
 - `programGoal`
+- `baselineDiagnosis`
+- `planPrinciples`
 - `learningRhythm`
 - `recordTemplates`
 - `roadmap`

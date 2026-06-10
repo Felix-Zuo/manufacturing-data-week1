@@ -48,6 +48,49 @@ window.COURSE_LIBRARY = {
         }
       ],
       programGoal: "8 周后，能拿着自己的项目讲清楚：如何把制造业 Excel、BOM、库存、船运、订单、节拍和生产通知单，拆成数据结构、确定性计算、Agent 工具调用、RAG 知识检索和管理层报告。",
+      baselineDiagnosis: {
+        summary: "当前不是零基础，也不是传统工程师水平，而是制造业业务理解强、AI 辅助开发经验已经成形、系统工程基础还不稳的 AI 应用落地型候选人。",
+        strengths: [
+          "有真实制造业场景，不是只会背 AI 概念。",
+          "已经做出库存工具、节拍仿真、生产通知单、工厂运营智能平台和 Agent 可靠性工具。",
+          "能意识到 AI 输出必须可追溯、可复核。",
+          "对管理层报告、现场看板和非技术用户使用方式有产品直觉。",
+          "能通过 Codex/OpenClaw 持续推进项目。"
+        ],
+        gaps: [
+          "数据库建模：需要稳定拆表、建主键、外键和关系。",
+          "RAG：需要形成 chunk、embedding、retrieval、top-k、citation 闭环。",
+          "Tool Schema/API：需要掌握 parameters、required fields、return value、error handling。",
+          "异步任务：需要固化 worker、queue、job_id、status polling 的标准表达。",
+          "测试和边界条件：需要把关键业务边界写成单元测试。",
+          "面试表达：需要把强业务理解升级成工程术语。"
+        ],
+        targetRoles: [
+          "AI Solution Consultant / AI 解决方案顾问",
+          "Manufacturing Digital Transformation Consultant / 制造业数字化转型顾问",
+          "AI Implementation Consultant / AI 实施顾问",
+          "AI Product Assistant / AI 产品助理",
+          "AI Application Engineer / AI 应用工程师",
+          "Digital Manufacturing Analyst / 制造业数字化分析师",
+          "MES 实施顾问 / 智能制造项目助理"
+        ],
+        proofPoints: [
+          "能发现真实制造业问题。",
+          "能把业务流程拆成数据结构。",
+          "能把判断逻辑拆成确定性规则。",
+          "能让 Agent 调用工具，而不是让 LLM 凭感觉回答。",
+          "能让每个结论有来源、公式、证据和人工复核点。",
+          "能把原型做成可演示、可运行、可解释的作品。"
+        ]
+      },
+      planPrinciples: [
+        "保留原计划的岗位定位、短板判断和“LLM 不稳，程序稳”的核心判断。",
+        "不按从零学习 AI Agent 的路线走，因为已有真实项目和业务经验。",
+        "把数据库提前到第 1 周，先讲清 BOM、库存、订单、船运这些结构化关系。",
+        "RAG 放到第 5 周，让它成为制造业系统的一部分，而不是孤立聊天机器人。",
+        "不新开无关项目，优先打磨 factory-ops-intelligence-platform 作为主作品。",
+        "每周必须有概念笔记、项目证据和面试表达。"
+      ],
       roadmap: [
         {
           id: "week-0-baseline",

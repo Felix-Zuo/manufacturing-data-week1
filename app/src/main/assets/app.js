@@ -271,6 +271,8 @@
       </article>
     `).join("");
 
+    const baseline = week.baselineDiagnosis;
+
     el.overview.innerHTML = `
       <section class="course-hero">
         <h2>完整学习路线</h2>
@@ -285,6 +287,24 @@
       <section class="lab-section">
         <h2>固定节奏</h2>
         ${listHtml(week.learningRhythm, "check-list")}
+      </section>
+
+      <section class="lab-section">
+        <h2>当前基线</h2>
+        ${paragraphHtml(baseline.summary, "baseline-summary")}
+        <h4>优势</h4>
+        ${listHtml(baseline.strengths, "check-list")}
+        <h4>短板</h4>
+        ${listHtml(baseline.gaps, "task-list")}
+        <h4>目标岗位</h4>
+        ${listHtml(baseline.targetRoles, "bullet-list")}
+        <h4>必须证明的能力</h4>
+        ${listHtml(baseline.proofPoints, "check-list")}
+      </section>
+
+      <section class="lab-section">
+        <h2>计划优化原则</h2>
+        ${listHtml(week.planPrinciples, "check-list")}
       </section>
 
       <section class="lab-section">
