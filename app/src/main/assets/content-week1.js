@@ -9,6 +9,311 @@ window.COURSE_LIBRARY = {
       duration: "7 天",
       level: "入门到可交付",
       outcome: "完成一个最小库存风险系统的数据模型、样例数据、查询口径和建模评审清单。",
+      learningRhythm: [
+        "每天 30 分钟：术语学习，3 个词，中英解释，配工厂例子。",
+        "每天 45-90 分钟：项目动作，读代码、补文档、补测试或做 demo。",
+        "每天 10 分钟：记录今天学到的概念、项目动作、卡点和明天任务。",
+        "每周 2-3 小时：整理本周交付物。",
+        "每周末：复盘并沉淀 1 段面试表达。"
+      ],
+      recordTemplates: [
+        {
+          title: "每日学习记录",
+          fields: [
+            "今日主题",
+            "今天掌握的 3 个术语：英文、中文、我的解释、工厂例子",
+            "今天做的小任务",
+            "今天用 Codex/OpenClaw 完成了什么",
+            "今天我亲自判断和设计了什么",
+            "今天的项目证据：文件、截图、测试、README、架构图或 demo",
+            "今天没懂的地方",
+            "明天要补",
+            "今天新增的面试表达"
+          ]
+        },
+        {
+          title: "每周复盘",
+          fields: [
+            "本周主题",
+            "我能讲清楚的概念",
+            "我还讲不清楚的概念",
+            "本周项目进展",
+            "本周留下的证据：路径或链接、说明",
+            "Codex/OpenClaw 帮我完成了什么",
+            "我自己做出的判断",
+            "本周最重要的面试表达",
+            "下周重点",
+            "本周评分：术语表达、项目推进、代码理解、面试表达、复盘质量"
+          ]
+        }
+      ],
+      programGoal: "8 周后，能拿着自己的项目讲清楚：如何把制造业 Excel、BOM、库存、船运、订单、节拍和生产通知单，拆成数据结构、确定性计算、Agent 工具调用、RAG 知识检索和管理层报告。",
+      roadmap: [
+        {
+          id: "week-0-baseline",
+          title: "第 0 周：整理基线，别从零开始",
+          duration: "2-3 天",
+          goal: "确认现有项目哪些能作为作品集，哪些只是学习材料。",
+          mustKnow: ["项目定位", "输入/输出", "确定性计算", "AI/Agent 辅助", "主项目和辅助项目"],
+          tasks: [
+            "跑通 factory-ops-intelligence-platform、factory-production-notice-agent、factory-excel-ops-dashboard、HulunGuard 的最小验证。",
+            "给每个项目写 5 行定位：业务问题、输入、输出、确定性计算、AI/Agent 辅助。",
+            "把 GitHub 上公开项目分成主作品和辅助作品。"
+          ],
+          deliverables: ["项目基线说明", "作品集优先级", "每个项目 5 行定位"],
+          interview: "我的主作品是工厂运营智能平台，PHRB 是真实业务原型，节拍模拟器证明我懂产线，生产通知单 Agent 证明我能把结构化工单转成可交付文件，HulunGuard 证明我重视 AI 任务的证据和验证。"
+        },
+        {
+          id: "week-1-database",
+          title: "第 1 周：数据库建模",
+          duration: "7 天",
+          goal: "把工厂 Excel 拆成系统能理解的数据结构。",
+          mustKnow: ["table / row / column", "primary key / foreign key", "one-to-many / many-to-many", "schema / index / query", "source_file / source_row"],
+          tasks: [
+            "阅读主项目的 database/schema.sql。",
+            "解释 materials、finished_products、bom_components、inventory_snapshots、customer_orders、shipment_records、production_notices、agent_traces。",
+            "画出 BOM 多对多关系，并写 5 个典型查询。"
+          ],
+          deliverables: ["week-01_数据库建模笔记.md", "week-01_库存系统表结构.md"],
+          interview: "BOM 是典型多对多关系。一个成品需要多个组件，一个组件也可能被多个成品共用，所以要拆成 finished_products、materials 和 bom_components，并保留单位用量和来源行。"
+        },
+        {
+          id: "week-2-tool-schema",
+          title: "第 2 周：API 和 Tool Schema",
+          duration: "7 天",
+          goal: "把“让 AI 分析 Excel”改写成稳定的工具接口。",
+          mustKnow: ["API / endpoint", "request / response", "payload", "JSON schema", "parameters", "required fields", "return value", "error handling", "permission / sandbox"],
+          tasks: [
+            "阅读主项目 API server 和 agent_tools。",
+            "设计 classify_factory_file、extract_bom_structure、calculate_inventory_risk、generate_production_notice、answer_factory_question。",
+            "每个工具写清名称、参数、返回值、错误场景和权限边界。"
+          ],
+          deliverables: ["week-02_tool_schema设计.md", "week-02_API请求响应例子.md"],
+          interview: "Agent 调工具不能只靠一句自然语言。工具必须有 schema，包括名称、参数、必填字段、返回值和错误格式。"
+        },
+        {
+          id: "week-3-deterministic",
+          title: "第 3 周：确定性计算、校验和测试",
+          duration: "7 天",
+          goal: "把 AI 结论可信落到公式、来源、边界条件和测试上。",
+          mustKnow: ["deterministic logic", "validation rule", "unit test", "edge case", "source of truth", "audit log", "reproducibility"],
+          tasks: [
+            "阅读 calculate_inventory_risk。",
+            "写出 required_qty、coverage_qty、shortage_qty、coverage_ratio、status 的计算链。",
+            "设计库存刚好够、库存不足、库存加在途刚好够、BOM 小数、缺少库存记录、来源为空等测试。"
+          ],
+          deliverables: ["week-03_缺料风险计算链.md", "week-03_可信AI输出规则.md"],
+          interview: "系统先用确定性代码计算订单需求、BOM 用量、当前库存、在途数量和覆盖率，再输出 source_ref 和 calculation trace。LLM 只负责解释。"
+        },
+        {
+          id: "week-4-async",
+          title: "第 4 周：异步任务和用户体验",
+          duration: "7 天",
+          goal: "讲清楚上传大 Excel 后为什么需要 job_id、worker 和状态轮询。",
+          mustKnow: ["sync / async", "background task", "task queue", "worker", "job_id", "status polling", "timeout", "retry", "failed state"],
+          tasks: [
+            "复盘 PHRB 项目里的后台导入任务和非阻塞进度。",
+            "设计 uploaded -> validating -> queued -> processing -> generating_report -> completed / failed。",
+            "写 processing、generating_report、completed、failed 的 JSON 响应。"
+          ],
+          deliverables: ["week-04_异步任务流程设计.md", "week-04_job状态响应示例.md"],
+          interview: "长时间 Excel 分析不应该让浏览器一直等待。上传后返回 job_id，后台 worker 处理，前端通过 status polling 查询进度。"
+        },
+        {
+          id: "week-5-rag",
+          title: "第 5 周：RAG 工厂制度问答",
+          duration: "7 天",
+          goal: "做一个最小但真实的 RAG demo，回答必须带来源。",
+          mustKnow: ["chunk", "embedding", "vector database", "retrieval", "top-k", "source citation", "hallucination"],
+          tasks: [
+            "准备库存异常、安全库存、船运延迟、BOM 异常、质量瓶颈 5 份 Markdown。",
+            "按 heading 和 chunk_id 切块，保存 source_file。",
+            "先用 SQLite FTS 或关键词检索，再升级 embedding + vector search。"
+          ],
+          deliverables: ["week-05_RAG流程笔记.md", "可运行的工厂制度问答 demo", "5 个问答样例和来源引用"],
+          interview: "RAG 是回答前先检索资料，再让 LLM 基于资料回答。这样可以减少幻觉，并让答案回到具体制度文件。"
+        },
+        {
+          id: "week-6-architecture",
+          title: "第 6 周：系统设计表达和架构图",
+          duration: "7 天",
+          goal: "从用户上传文件讲到数据库、worker、Agent、报告和前端展示。",
+          mustKnow: ["frontend", "backend", "database", "file storage", "worker", "agent runtime", "LLM summary", "dashboard"],
+          tasks: [
+            "画 Frontend Upload -> API -> File Storage -> Database Metadata -> Job Queue -> Worker -> Parsers -> Deterministic Engines -> Agent Tools -> LLM Summary -> Report Storage -> Dashboard。",
+            "写清每层职责。",
+            "给主项目写 3 分钟 demo script。"
+          ],
+          deliverables: ["week-06_系统架构讲解.md", "week-06_demo讲稿.md"],
+          interview: "前端负责上传和展示，后端负责校验和业务规则，数据库存结构化数据和元数据，worker 处理长任务，Agent runtime 负责工具选择和 trace。"
+        },
+        {
+          id: "week-7-portfolio",
+          title: "第 7 周：作品集包装",
+          duration: "7 天",
+          goal: "把现有项目包装成 3 个能讲的案例。",
+          mustKnow: ["BOM explosion", "inventory risk", "source refs", "agent tools", "line simulation", "production notice", "deterministic engines", "adapter boundary"],
+          tasks: [
+            "把主项目写成完整系统案例。",
+            "把 PHRB、节拍模拟器、生产通知单 Agent、HulunGuard 写成辅助案例。",
+            "为每个主项目准备业务背景、输入数据、核心流程、架构、关键计算、来源追溯、测试截图、局限和下一步。"
+          ],
+          deliverables: ["week-07_作品集讲解卡片.md", "每个主项目一段 60 秒介绍"],
+          interview: "这些项目证明我能把真实制造业问题拆成数据、规则、工具和报告，再用 AI 辅助开发快速做出可验证原型。"
+        },
+        {
+          id: "week-8-interview",
+          title: "第 8 周：面试和投递",
+          duration: "7 天",
+          goal: "把能力包装成岗位语言。",
+          mustKnow: ["AI implementation", "digital transformation", "manufacturing", "MES", "workflow automation", "RAG", "API", "data analysis"],
+          tasks: [
+            "每个核心问题写 60 秒版和 3 分钟版。",
+            "找 10 个 JD，标关键词。",
+            "修改简历项目描述。"
+          ],
+          deliverables: ["week-08_面试回答.md", "week-08_JD关键词匹配.md", "简历项目经历草稿"],
+          interview: "我的优势是制造业现场业务理解和 AI 应用落地能力。我能把业务问题拆成数据结构、确定性规则、Agent 工具流和管理层报告。"
+        }
+      ],
+      minimumOutcomes: [
+        "一份数据库建模说明。",
+        "一套 Tool Schema 设计。",
+        "一份缺料风险确定性计算链。",
+        "一份异步任务流程设计。",
+        "一个 RAG 工厂制度问答 demo。",
+        "一张系统架构图。",
+        "三个项目讲解卡片。",
+        "八个核心面试问题的回答。"
+      ],
+      portfolioProjects: [
+        {
+          name: "factory-ops-intelligence-platform",
+          role: "主作品，讲完整系统",
+          strengths: ["FastAPI operations API", "React dashboard", "BOM、库存、订单、船运、生产通知、产线仿真、Agent trace", "deterministic domain engines", "source_ref 和 tool-backed Agent Runtime", "测试能通过"],
+          upgrades: ["写数据库说明，补 FK 设计文档", "加工厂制度问答 demo", "写 job_id/worker/polling 设计", "增加库存临界、缺源、异常数据测试", "README 增加设计理由和 demo script"],
+          pitch: "这个项目是制造业运营智能平台 demo，把 BOM、库存、订单、船运、生产通知、产线仿真和 Agent 工具调用放在同一条流程里。关键计算由 deterministic domain engines 完成，Agent 负责调用工具、记录 trace 和生成可读解释。"
+        },
+        {
+          name: "phrb-stock-app",
+          role: "真实业务经验，讲落地问题",
+          strengths: ["真实 Excel 场景", "库存更新、BOM 查询、安全库存看板、历史记忆、趋势判断", "WPF 客户端和便携包", "处理文件改名、后台任务、Excel 卡死、WPS 异常"],
+          upgrades: ["准备脱敏 demo 数据", "画 PowerShell/Python/WPF/Excel COM 关系", "把 manifest、验证报告、source trace 讲成审计链", "简历写成制造业库存风险分析和 Excel 自动化工具"],
+          pitch: "PHRB 项目来自真实库存工作流，目标是把每日 Excel 更新、BOM 查询、安全库存判断和历史趋势从人工复制粘贴变成可交付的小工具。"
+        },
+        {
+          name: "Factory_Takt_Simulator",
+          role: "证明制造现场和节拍理解",
+          strengths: ["React + Electron + React Flow", "产线节拍、缓存、机械手、堵料、待料、瓶颈分析", "后台仿真报告和 smoke 脚本"],
+          upgrades: ["写清适用场景：轴承套圈沟磨/装配沙盘", "解释节拍、良率、稼动率、缓存逻辑", "保留关键画布截图和 smoke 结果", "面试强调瓶颈分析思维"],
+          pitch: "节拍模拟器把制造现场的工序、节拍、缓存、机械手和堵料问题抽象成可视化仿真，用设备能力、运输能力和等待/堵料信号判断瓶颈。"
+        },
+        {
+          name: "factory-production-notice-agent",
+          role: "证明结构化契约和自动化交付",
+          strengths: ["Python package", "从结构化 work-order payload 生成 Excel、HTML preview、manifest、agent context", "有输入契约和 pytest"],
+          upgrades: ["README 明确安装方式", "把 input contract 和 agent context 解释成 tool output", "增加缺字段、异常数量、空 routing 测试"],
+          pitch: "这个项目把结构化工单转换成生产通知单、网页预览和 Agent 可读上下文，体现输入契约和下游自动化上下文的价值。"
+        },
+        {
+          name: "HulunGuard",
+          role: "证明 AI 可靠性意识",
+          strengths: ["关注 evidence、verification、risk、monitor", "测试覆盖没有证据不能通过验证", "和 AI 输出可信定位一致"],
+          upgrades: ["定位成 AI 长任务证据监控", "用制造业 Agent 分析任务作为案例", "README 增加 final claim 必须 evidence-backed 的原因"],
+          pitch: "HulunGuard 检查长期任务里是否出现目标漂移、证据不足、工具失败后继续下结论等问题，和制造业 AI 应用里的 audit log、source trace、human review 是同一类可靠性思想。"
+        }
+      ],
+      interviewBank: [
+        {
+          question: "自我定位",
+          answer60: "我的优势是制造业现场业务理解和 AI 应用落地能力。我熟悉库存、BOM、PMC、船运、待料风险、产线节拍和异常管理。我现在做的方向，是把这些业务问题拆成数据结构、确定性规则、Agent 工具流和管理层报告，再用 AI 辅助开发快速做出可演示、可验证的系统。",
+          expansion: ["不要只说熟练掌握 AI Agent 开发。", "更稳的说法是：正在把制造业业务经验转化为 AI Agent 工作流、数据校验规则和可追溯报告系统。"]
+        },
+        {
+          question: "你理解的 AI Agent 是什么？",
+          answer60: "AI Agent 不是单纯聊天机器人，而是由 LLM、工具调用、任务规划、观察和评估组成的系统。LLM 负责理解任务和生成语言，工具负责读取文件、查询数据库、调用 API 或执行代码。",
+          expansion: ["LLM 本身只生成文本，不能直接操作外部系统。", "工具让 Agent 能读 Excel、查数据库、跑计算、生成报告。", "制造业里 Agent 不应该凭感觉算库存，而是调用确定性工具。"]
+        },
+        {
+          question: "为什么关键库存计算不能交给 LLM？",
+          answer60: "库存、安全库存、BOM 用量和船运到货时间都是关键业务数据，不能交给概率模型自由生成。关键计算由确定性代码和业务规则完成，LLM 只负责解释计算结果、归纳异常原因和生成管理层摘要。",
+          expansion: ["LLM 不适合作为 source of truth。", "系统要保存 source_ref、calculation trace 和 audit log。", "异常结果需要 human review。"]
+        },
+        {
+          question: "RAG 是什么？",
+          answer60: "RAG 是检索增强生成。它不是让模型记住所有资料，而是回答前先查资料。系统把文档切成 chunk，转成 embedding，存入向量库。用户提问时先 retrieval 最相关的 top-k 内容，再让 LLM 基于资料回答，并给出来源引用。",
+          expansion: ["工厂例子：问船运延迟时，系统先检索船运延迟 SOP、安全库存规则和异常升级流程。", "回答必须回到来源文件和段落。"]
+        },
+        {
+          question: "你怎么保证 AI 输出可信？",
+          answer60: "我会把 AI 输出建立在可追溯的数据链上。系统先做 data validation，检查模板、字段、日期、单位和异常值；然后用确定性代码完成计算；每个结论保留 source trace、calculation trace 和 audit log。",
+          expansion: ["关键词：data validation、source traceability、deterministic logic、audit log、reproducibility、human review。"]
+        },
+        {
+          question: "你怎么设计一个 Excel 分析系统？",
+          answer60: "我会把它拆成前端上传、后端校验、文件存储、数据库元数据、后台任务、Excel 解析、规则计算、LLM 摘要和报告展示。上传后返回 job_id，worker 后台处理，前端轮询状态。",
+          expansion: ["标准流程：upload -> validate -> store file -> create job_id -> worker parse Excel -> save structured data -> deterministic calculation -> LLM summary -> report output -> audit log。"]
+        },
+        {
+          question: "你做过什么 AI 项目？",
+          answer60: "我做过几个制造业相关原型。主项目是工厂运营智能平台，把 BOM、库存、订单、船运、生产通知、产线仿真和 Agent 工具调用放到一个 demo 里。另一个 PHRB 库存工具来自真实 Excel 工作流，还有节拍模拟器用来分析产线设备、缓存、机械手和瓶颈。",
+          expansion: ["先讲主项目。", "再讲真实业务项目。", "最后讲辅助项目证明能力宽度。"]
+        },
+        {
+          question: "你为什么适合 AI 解决方案顾问？",
+          answer60: "这个岗位需要把客户业务问题翻译成可落地系统。我有制造业现场和 PMC 业务理解，知道库存、BOM、船运、待料、产线节拍这些真实问题，也能用 AI 辅助开发做出可演示原型。",
+          expansion: ["关键词：requirement analysis、stakeholder communication、workflow design、implementation、domain knowledge、proof of concept。"]
+        },
+        {
+          question: "你目前最大的短板是什么？",
+          answer60: "我目前最大的短板不是业务理解，而是工程表达和系统化基础还在补，比如数据库建模、RAG、Tool Schema 和异步任务。我已经通过项目在补这些能力，例如把 BOM 和库存拆成结构化表，把 Agent 工具定义成 schema，把关键计算放到确定性代码里。",
+          expansion: ["承认短板，但要接到行动和证据。"]
+        }
+      ],
+      lessonEnglishReviews: [
+        {
+          lessonId: "day-1",
+          terms: ["business boundary", "business event", "master data", "metric"],
+          en: "A useful data model starts with business boundaries. Before creating tables, define what the system must answer and which events provide evidence.",
+          zh: "有用的数据模型从业务边界开始。建表之前，先定义系统必须回答什么问题，以及哪些事件能提供证据。"
+        },
+        {
+          lessonId: "day-2",
+          terms: ["entity", "attribute", "transaction data", "audit field"],
+          en: "Entities have stable identities. Attributes describe them, while transaction data records what happened to them over time.",
+          zh: "实体拥有稳定身份。属性描述实体，事务数据记录实体随时间发生了什么。"
+        },
+        {
+          lessonId: "day-3",
+          terms: ["primary key", "foreign key", "constraint", "junction table"],
+          en: "Keys and constraints protect business facts. A junction table is required when both sides of a relationship can have many records.",
+          zh: "键和约束保护业务事实。当关系两边都可能有多条记录时，需要中间表。"
+        },
+        {
+          lessonId: "day-4",
+          terms: ["bill of materials", "routing", "component", "work center"],
+          en: "The BOM explains what components are required. Routing explains which operations and work centers are needed to make the product.",
+          zh: "BOM 解释需要哪些子件。工艺路线解释制造产品需要哪些工序和工作中心。"
+        },
+        {
+          lessonId: "day-5",
+          terms: ["lot", "traceability", "evidence", "inventory transaction"],
+          en: "Traceability connects conclusions to original events. A shortage warning should point back to demand, supply, stock and rule evidence.",
+          zh: "追溯性把结论连接回原始事件。缺料提醒应该能回到需求、供应、库存和规则证据。"
+        },
+        {
+          lessonId: "day-6",
+          terms: ["query", "risk level", "tool interface", "structured evidence"],
+          en: "A stable agent tool should return structured evidence, not just a fluent explanation. The explanation can be generated, but the facts must come from queries.",
+          zh: "稳定的 Agent 工具应该返回结构化证据，而不只是流畅解释。解释可以生成，但事实必须来自查询。"
+        },
+        {
+          lessonId: "day-7",
+          terms: ["model review", "deliverable", "defensible design", "portfolio pitch"],
+          en: "A defensible design can explain its boundary, identities, relationships, constraints and queries. That is what makes a project interview-ready.",
+          zh: "能辩护的设计可以解释边界、身份、关系、约束和查询。这会让项目具备面试表达能力。"
+        }
+      ],
       updateContract: {
         weekFilePattern: "content-week{n}.js",
         registration: "window.COURSE_LIBRARY.weeks.push(weekPayload)",
@@ -686,6 +991,300 @@ window.COURSE_LIBRARY = {
           zh: "审计轨迹",
           definition: "记录数据变更、计算和访问来源的历史线索。",
           example: "An audit trail helps explain who changed a safety stock rule."
+        },
+        {
+          term: "LLM",
+          zh: "大语言模型",
+          category: "Agent 基础",
+          definition: "负责理解和生成语言的模型，不应负责关键业务计算。",
+          example: "The LLM explains the shortage result, but deterministic code calculates the shortage quantity."
+        },
+        {
+          term: "Prompt",
+          zh: "提示词",
+          category: "Agent 基础",
+          definition: "给模型的任务说明、约束和输出格式要求。",
+          example: "A prompt can instruct the model to summarize inventory risk with source references."
+        },
+        {
+          term: "Context",
+          zh: "上下文",
+          category: "Agent 基础",
+          definition: "模型当前可以参考的用户输入、工具结果、历史信息和系统约束。",
+          example: "Uploaded files and tool observations become context for the agent."
+        },
+        {
+          term: "Context Window",
+          zh: "上下文窗口",
+          category: "Agent 基础",
+          definition: "模型一次能处理的信息容量限制。",
+          example: "A context window is not large enough for every Excel file and every SOP document."
+        },
+        {
+          term: "Planning",
+          zh: "规划",
+          category: "Agent 基础",
+          definition: "Agent 在执行前拆分任务和选择步骤的过程。",
+          example: "The agent plans to validate the file, parse the BOM and calculate risk."
+        },
+        {
+          term: "Action",
+          zh: "行动",
+          category: "Agent 基础",
+          definition: "Agent 实际调用工具或执行操作的一步。",
+          example: "Reading an uploaded Excel file is an action."
+        },
+        {
+          term: "Observation",
+          zh: "观察结果",
+          category: "Agent 基础",
+          definition: "工具执行后返回给 Agent 的结果。",
+          example: "The parsed inventory rows are observations."
+        },
+        {
+          term: "Evaluation",
+          zh: "评估",
+          category: "Agent 基础",
+          definition: "检查任务结果是否满足目标、证据和格式要求。",
+          example: "Evaluation checks whether the report includes formulas and source references."
+        },
+        {
+          term: "Memory",
+          zh: "记忆",
+          category: "Agent 基础",
+          definition: "长期保存的用户偏好、历史状态或项目事实。",
+          example: "The system may remember the last inventory snapshot for trend analysis."
+        },
+        {
+          term: "API",
+          zh: "应用程序编程接口",
+          category: "Tool/API",
+          definition: "前后端或系统之间稳定交换数据的接口。",
+          example: "An inventory risk API returns material shortage results."
+        },
+        {
+          term: "Endpoint",
+          zh: "接口地址",
+          category: "Tool/API",
+          definition: "某个具体功能的访问地址。",
+          example: "/api/production-notices/generate is an endpoint."
+        },
+        {
+          term: "Request",
+          zh: "请求",
+          category: "Tool/API",
+          definition: "调用接口或工具时发送的数据。",
+          example: "A request may include product_id and quantity."
+        },
+        {
+          term: "Response",
+          zh: "响应",
+          category: "Tool/API",
+          definition: "接口或工具返回的数据。",
+          example: "A response returns risk level and source references."
+        },
+        {
+          term: "Payload",
+          zh: "请求体",
+          category: "Tool/API",
+          definition: "请求中承载业务数据的主体。",
+          example: "The JSON payload contains order lines and due dates."
+        },
+        {
+          term: "Parameter",
+          zh: "参数",
+          category: "Tool/API",
+          definition: "工具或 API 需要的输入项。",
+          example: "material_code is a parameter for a material risk query."
+        },
+        {
+          term: "Required Field",
+          zh: "必填字段",
+          category: "Tool/API",
+          definition: "缺失后工具无法可靠执行的字段。",
+          example: "product_id is required for BOM explosion."
+        },
+        {
+          term: "Return Value",
+          zh: "返回值",
+          category: "Tool/API",
+          definition: "工具或 API 稳定返回的数据结构。",
+          example: "overall_status and source_refs are return values."
+        },
+        {
+          term: "Error Handling",
+          zh: "错误处理",
+          category: "Tool/API",
+          definition: "让系统失败时可解释、可恢复的设计。",
+          example: "INVALID_TEMPLATE explains that the uploaded Excel is missing required columns."
+        },
+        {
+          term: "Sandbox",
+          zh: "沙盒",
+          category: "Tool/API",
+          definition: "限制工具执行范围和风险的隔离环境。",
+          example: "A sandbox can restrict the agent to the upload directory."
+        },
+        {
+          term: "RAG",
+          zh: "检索增强生成",
+          category: "RAG",
+          definition: "回答前先检索资料，再让模型基于资料生成答案。",
+          example: "RAG retrieves safety stock rules before answering policy questions."
+        },
+        {
+          term: "Chunk",
+          zh: "文本切块",
+          category: "RAG",
+          definition: "知识库检索的基本文本单位。",
+          example: "An SOP document is split into chunks by section headings."
+        },
+        {
+          term: "Embedding",
+          zh: "向量表示",
+          category: "RAG",
+          definition: "把文本转换成可比较的数字向量。",
+          example: "Embeddings help compare semantic similarity between a question and SOP chunks."
+        },
+        {
+          term: "Vector Database",
+          zh: "向量数据库",
+          category: "RAG",
+          definition: "存储向量并支持相似度检索的数据库。",
+          example: "A vector database stores embeddings for factory SOP chunks."
+        },
+        {
+          term: "Retrieval",
+          zh: "检索",
+          category: "RAG",
+          definition: "回答前查找相关资料的过程。",
+          example: "Retrieval finds the most relevant delay-handling policy."
+        },
+        {
+          term: "Top-k",
+          zh: "前 k 个结果",
+          category: "RAG",
+          definition: "检索时取最相关的 k 条内容。",
+          example: "The retriever sends the top five chunks to the prompt."
+        },
+        {
+          term: "Source Citation",
+          zh: "来源引用",
+          category: "RAG",
+          definition: "回答中标明依据来自哪份文件或段落。",
+          example: "Source citation makes an SOP answer auditable."
+        },
+        {
+          term: "Hallucination",
+          zh: "幻觉",
+          category: "RAG",
+          definition: "模型编造不存在事实、流程或来源的现象。",
+          example: "RAG reduces hallucination by grounding answers in retrieved documents."
+        },
+        {
+          term: "Sync",
+          zh: "同步",
+          category: "异步任务",
+          definition: "调用方等待任务完成后才得到最终结果。",
+          example: "A sync upload keeps the browser waiting until analysis finishes."
+        },
+        {
+          term: "Async",
+          zh: "异步",
+          category: "异步任务",
+          definition: "任务开始后先返回编号，后台继续处理。",
+          example: "An async upload returns a job_id immediately."
+        },
+        {
+          term: "Task Queue",
+          zh: "任务队列",
+          category: "异步任务",
+          definition: "管理后台任务顺序和负载的队列。",
+          example: "A task queue lets multiple Excel files wait for available workers."
+        },
+        {
+          term: "Worker",
+          zh: "工作进程",
+          category: "异步任务",
+          definition: "从队列中取任务并执行的后台程序。",
+          example: "A worker parses Excel and generates the report."
+        },
+        {
+          term: "Job ID",
+          zh: "任务编号",
+          category: "异步任务",
+          definition: "用户追踪长任务状态的唯一编号。",
+          example: "The frontend polls status by job_id."
+        },
+        {
+          term: "Status Polling",
+          zh: "状态轮询",
+          category: "异步任务",
+          definition: "前端定期查询后台任务进度。",
+          example: "Status polling updates the report progress bar."
+        },
+        {
+          term: "Timeout",
+          zh: "超时",
+          category: "异步任务",
+          definition: "任务超过限制时间后停止或进入失败状态。",
+          example: "A timeout prevents a locked Excel file from blocking the queue."
+        },
+        {
+          term: "Retry",
+          zh: "重试",
+          category: "异步任务",
+          definition: "临时失败后重新执行任务。",
+          example: "A retry can recover from a temporary file lock."
+        },
+        {
+          term: "Deterministic Logic",
+          zh: "确定性逻辑",
+          category: "可信 AI 输出",
+          definition: "同样输入下应得到同样输出的规则和代码。",
+          example: "Shortage quantity should be calculated by deterministic logic."
+        },
+        {
+          term: "Rule Engine",
+          zh: "规则引擎",
+          category: "可信 AI 输出",
+          definition: "把业务规则固定为可执行逻辑的模块。",
+          example: "A rule engine classifies risk as critical, watch or covered."
+        },
+        {
+          term: "Validation Rule",
+          zh: "校验规则",
+          category: "可信 AI 输出",
+          definition: "用于检查输入是否完整、合法、可信的规则。",
+          example: "A validation rule rejects an Excel file without material_code."
+        },
+        {
+          term: "Unit Test",
+          zh: "单元测试",
+          category: "可信 AI 输出",
+          definition: "验证单个函数或模块行为的测试。",
+          example: "A unit test verifies BOM quantity multiplication."
+        },
+        {
+          term: "Edge Case",
+          zh: "边界情况",
+          category: "可信 AI 输出",
+          definition: "容易暴露规则漏洞的极端或临界输入。",
+          example: "Inventory exactly equal to demand is an edge case."
+        },
+        {
+          term: "Reproducibility",
+          zh: "可复现性",
+          category: "可信 AI 输出",
+          definition: "同一输入重复运行时能得到一致结果。",
+          example: "Reproducibility is required for an auditable risk report."
+        },
+        {
+          term: "Explainability",
+          zh: "可解释性",
+          category: "可信 AI 输出",
+          definition: "系统能展示公式、输入、中间结果和结论原因。",
+          example: "Explainability helps managers trust shortage warnings."
         }
       ],
       bilingualArticle: {

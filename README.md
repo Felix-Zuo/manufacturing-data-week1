@@ -4,8 +4,12 @@ Android course app for the first week of manufacturing data modeling.
 
 ## Contents
 
+- Eight-week learning roadmap
 - Seven-day database modeling course
-- Manufacturing glossary and bilingual reading
+- Manufacturing, Agent, API, RAG, async-task and reliability glossary
+- Bilingual reading and per-lesson English review
+- Portfolio improvement notes
+- Interview answer bank
 - Local vocabulary list
 - Paragraph bookmarks and notes
 - Content structure for future weeks

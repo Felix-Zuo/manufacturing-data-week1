@@ -18,7 +18,15 @@ Each week payload should include:
 - `duration`
 - `level`
 - `outcome`
+- `programGoal`
+- `learningRhythm`
+- `recordTemplates`
+- `roadmap`
+- `minimumOutcomes`
+- `portfolioProjects`
+- `interviewBank`
 - `lessons`
+- `lessonEnglishReviews`
 - `glossary`
 - `bilingualArticle`
 

@@ -148,7 +148,7 @@ h4 {
   top: 68px;
   z-index: 19;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 6px;
   margin: 10px 0 14px;
   padding: 6px;
@@ -186,7 +186,9 @@ h4 {
 .lesson,
 .lab-section,
 .empty-state,
-.saved-card {
+.saved-card,
+.overview-card,
+.english-review {
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: 8px;
@@ -228,6 +230,22 @@ h4 {
   margin: 16px 0;
   padding: 16px;
   scroll-margin-top: 128px;
+}
+
+.overview-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.overview-card {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+}
+
+.overview-card h4 {
+  margin-top: 4px;
 }
 
 .lesson-head {
@@ -383,6 +401,25 @@ h4 {
 .lab-section {
   margin: 16px 0;
   padding: 16px;
+}
+
+.english-review {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+  padding: 14px;
+  background: var(--blue-soft);
+  border-color: #c4dce7;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.term-group {
+  margin-top: 18px;
 }
 
 .term-grid {
@@ -686,6 +723,10 @@ textarea {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .overview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .article-pair {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -709,9 +750,9 @@ textarea {
   }
 
   .tab {
-    font-size: 13px;
-    padding-left: 4px;
-    padding-right: 4px;
+    font-size: 12px;
+    padding-left: 2px;
+    padding-right: 2px;
   }
 
   .lesson,

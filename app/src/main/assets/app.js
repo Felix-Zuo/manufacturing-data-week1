@@ -12,6 +12,7 @@
   const glossaryByLower = new Map(week.glossary.map((item) => [item.term.toLowerCase(), item]));
 
   const el = {
+    overview: document.getElementById("overview-view"),
     course: document.getElementById("course-view"),
     english: document.getElementById("english-view"),
     vocab: document.getElementById("vocab-view"),
@@ -226,6 +227,106 @@
     return `<figure class="diagram">${diagrams[type] || ""}</figure>`;
   }
 
+  function renderOverview() {
+    const roadmap = week.roadmap.map((item, index) => `
+      <article class="overview-card" id="${escapeAttr(item.id)}">
+        <div class="lesson-label">${escapeHtml(item.duration)}</div>
+        <h3>${escapeHtml(item.title)}</h3>
+        ${paragraphHtml(item.goal, `roadmap-${index + 1}-goal`)}
+        <h4>必须掌握</h4>
+        ${listHtml(item.mustKnow, "bullet-list")}
+        <h4>项目动作</h4>
+        ${listHtml(item.tasks, "task-list")}
+        <h4>交付物</h4>
+        ${listHtml(item.deliverables, "check-list")}
+        ${calloutHtml("面试表达", item.interview, "normal")}
+      </article>
+    `).join("");
+
+    const projects = week.portfolioProjects.map((project, index) => `
+      <article class="overview-card">
+        <div class="lesson-label">${escapeHtml(project.role)}</div>
+        <h3>${escapeHtml(project.name)}</h3>
+        ${paragraphHtml(project.pitch, `portfolio-${index + 1}-pitch`)}
+        <h4>当前亮点</h4>
+        ${listHtml(project.strengths, "check-list")}
+        <h4>补强动作</h4>
+        ${listHtml(project.upgrades, "task-list")}
+      </article>
+    `).join("");
+
+    const interviews = week.interviewBank.map((item, index) => `
+      <article class="overview-card">
+        <div class="lesson-label">Question ${index + 1}</div>
+        <h3>${escapeHtml(item.question)}</h3>
+        ${paragraphHtml(item.answer60, `interview-${index + 1}-answer`)}
+        ${listHtml(item.expansion, "bullet-list")}
+      </article>
+    `).join("");
+
+    const templates = week.recordTemplates.map((item) => `
+      <article class="overview-card">
+        <h3>${escapeHtml(item.title)}</h3>
+        ${listHtml(item.fields, "bullet-list")}
+      </article>
+    `).join("");
+
+    el.overview.innerHTML = `
+      <section class="course-hero">
+        <h2>完整学习路线</h2>
+        ${paragraphHtml(week.programGoal, "program-goal")}
+        <div class="meta-row">
+          <span class="pill">8 周主线</span>
+          <span class="pill">项目驱动</span>
+          <span class="pill">面试可讲</span>
+        </div>
+      </section>
+
+      <section class="lab-section">
+        <h2>固定节奏</h2>
+        ${listHtml(week.learningRhythm, "check-list")}
+      </section>
+
+      <section class="lab-section">
+        <h2>记录模板</h2>
+        <div class="overview-grid">${templates}</div>
+      </section>
+
+      <section class="lab-section">
+        <h2>大章节</h2>
+        <div class="overview-grid">${roadmap}</div>
+      </section>
+
+      <section class="lab-section">
+        <h2>8 周最低成果</h2>
+        ${listHtml(week.minimumOutcomes, "check-list")}
+      </section>
+
+      <section class="lab-section">
+        <h2>作品集改造</h2>
+        <div class="overview-grid">${projects}</div>
+      </section>
+
+      <section class="lab-section">
+        <h2>面试表达题库</h2>
+        <div class="overview-grid">${interviews}</div>
+      </section>`;
+  }
+
+  function englishReviewHtml(lesson) {
+    const review = (week.lessonEnglishReviews || []).find((item) => item.lessonId === lesson.id);
+    if (!review) return "";
+    const termChips = review.terms.map((term) => `<button class="term-button" type="button" data-term="${escapeAttr(term)}">${escapeHtml(term)}</button>`).join("");
+    return `
+      <section class="english-review">
+        <div class="lesson-label">English Review</div>
+        <h3>本章英文复习</h3>
+        <div class="chip-row">${termChips}</div>
+        <p class="english">${escapeHtml(review.en)}</p>
+        <p>${escapeHtml(review.zh)}</p>
+      </section>`;
+  }
+
   function renderCourse() {
     const lessonHtml = week.lessons.map((lesson) => {
       const sections = lesson.sections.map((section, sectionIndex) => {
@@ -253,6 +354,7 @@
           </div>
           ${diagramHtml(lesson.diagram)}
           ${sections}
+          ${englishReviewHtml(lesson)}
         </article>`;
     }).join("");
 
@@ -281,19 +383,33 @@
 
   function renderTerms() {
     const vocab = getVocab();
-    return week.glossary.map((item) => {
-      const saved = vocab[item.term.toLowerCase()];
-      return `
-        <article class="term-card">
-          <div class="term-title">
-            <strong>${escapeHtml(item.term)}</strong>
-            <span>${escapeHtml(item.zh)}</span>
-          </div>
-          <p>${escapeHtml(item.definition)}</p>
-          <p class="english">${escapeHtml(item.example)}</p>
-          <button class="term-button" type="button" data-term="${escapeAttr(item.term)}">${saved ? "已加入" : "加入词本"}</button>
-        </article>`;
-    }).join("");
+    const groups = week.glossary.reduce((acc, item) => {
+      const key = item.category || "制造业数据库";
+      if (!acc[key]) acc[key] = [];
+      acc[key].push(item);
+      return acc;
+    }, {});
+
+    return Object.entries(groups).map(([category, items]) => `
+      <section class="term-group">
+        <h3>${escapeHtml(category)}</h3>
+        <div class="term-grid">
+          ${items.map((item) => {
+            const saved = vocab[item.term.toLowerCase()];
+            return `
+              <article class="term-card">
+                <div class="term-title">
+                  <strong>${escapeHtml(item.term)}</strong>
+                  <span>${escapeHtml(item.zh)}</span>
+                </div>
+                <p>${escapeHtml(item.definition)}</p>
+                <p class="english">${escapeHtml(item.example)}</p>
+                <button class="term-button" type="button" data-term="${escapeAttr(item.term)}">${saved ? "已加入" : "加入词本"}</button>
+              </article>`;
+          }).join("")}
+        </div>
+      </section>
+    `).join("");
   }
 
   function markEnglishTerms(text, terms) {
@@ -321,12 +437,12 @@
         </article>`;
     }).join("");
 
-    el.english.innerHTML = `
-      <section class="lab-section">
-        <h2>术语</h2>
-        <p class="lesson-summary">${escapeHtml(article.intro)}</p>
-        <div class="term-grid">${renderTerms()}</div>
-      </section>
+      el.english.innerHTML = `
+        <section class="lab-section">
+          <h2>术语</h2>
+          <p class="lesson-summary">${escapeHtml(article.intro)}</p>
+          ${renderTerms()}
+        </section>
       <section class="lab-section">
         <h2>${escapeHtml(article.title)}</h2>
         <div class="article-pair">${pairs}</div>
@@ -385,6 +501,7 @@
   }
 
   function rerenderAll() {
+    renderOverview();
     renderCourse();
     renderEnglish();
     renderVocab();
@@ -530,7 +647,7 @@
   }
 
   function restoreState() {
-    const view = localStorage.getItem(STORAGE.view) || "course";
+    const view = localStorage.getItem(STORAGE.view) || "overview";
     setView(view);
     if (view === "course") {
       const y = Number(localStorage.getItem(STORAGE.scroll) || "0");
@@ -621,6 +738,7 @@
     window.addEventListener("beforeunload", saveScroll);
   }
 
+  renderOverview();
   renderCourse();
   renderToc();
   renderEnglish();
