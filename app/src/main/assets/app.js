@@ -1,10 +1,10 @@
 (function () {
   const STORAGE = {
-    view: "felix.week1.view",
-    scroll: "felix.week1.scrollY",
-    vocab: "felix.week1.vocab",
-    notes: "felix.week1.notes",
-    lastSection: "felix.week1.lastSection"
+    view: "factory.data.lab.view",
+    scroll: "factory.data.lab.scrollY",
+    vocab: "factory.data.lab.vocab",
+    notes: "factory.data.lab.notes",
+    lastSection: "factory.data.lab.lastSection"
   };
 
   const library = window.COURSE_LIBRARY;
@@ -239,7 +239,7 @@
         ${listHtml(item.tasks, "task-list")}
         <h4>交付物</h4>
         ${listHtml(item.deliverables, "check-list")}
-        ${calloutHtml("面试表达", item.interview, "normal")}
+        ${calloutHtml("Review prompt", item.interview, "normal")}
       </article>
     `).join("");
 
@@ -247,19 +247,19 @@
       <article class="overview-card">
         <div class="lesson-label">${escapeHtml(project.role)}</div>
         <h3>${escapeHtml(project.name)}</h3>
-        ${paragraphHtml(project.pitch, `portfolio-${index + 1}-pitch`)}
+        ${paragraphHtml(project.pitch, `module-${index + 1}-pitch`)}
         <h4>当前亮点</h4>
         ${listHtml(project.strengths, "check-list")}
-        <h4>补强动作</h4>
+        <h4>扩展方向</h4>
         ${listHtml(project.upgrades, "task-list")}
       </article>
     `).join("");
 
-    const interviews = week.interviewBank.map((item, index) => `
+    const reviewQuestions = week.interviewBank.map((item, index) => `
       <article class="overview-card">
         <div class="lesson-label">Question ${index + 1}</div>
         <h3>${escapeHtml(item.question)}</h3>
-        ${paragraphHtml(item.answer60, `interview-${index + 1}-answer`)}
+        ${paragraphHtml(item.answer60, `review-${index + 1}-answer`)}
         ${listHtml(item.expansion, "bullet-list")}
       </article>
     `).join("");
@@ -275,12 +275,12 @@
 
     el.overview.innerHTML = `
       <section class="course-hero">
-        <h2>完整学习路线</h2>
+        <h2>实验路线</h2>
         ${paragraphHtml(week.programGoal, "program-goal")}
         <div class="meta-row">
-          <span class="pill">8 周主线</span>
+          <span class="pill">Open demo</span>
           <span class="pill">项目驱动</span>
-          <span class="pill">面试可讲</span>
+          <span class="pill">可复用模板</span>
         </div>
       </section>
 
@@ -313,23 +313,23 @@
       </section>
 
       <section class="lab-section">
-        <h2>大章节</h2>
+        <h2>核心章节</h2>
         <div class="overview-grid">${roadmap}</div>
       </section>
 
       <section class="lab-section">
-        <h2>8 周最低成果</h2>
+        <h2>最低可交付成果</h2>
         ${listHtml(week.minimumOutcomes, "check-list")}
       </section>
 
       <section class="lab-section">
-        <h2>作品集改造</h2>
+        <h2>扩展模块</h2>
         <div class="overview-grid">${projects}</div>
       </section>
 
       <section class="lab-section">
-        <h2>面试表达题库</h2>
-        <div class="overview-grid">${interviews}</div>
+        <h2>复盘问题</h2>
+        <div class="overview-grid">${reviewQuestions}</div>
       </section>`;
   }
 

@@ -1,4 +1,4 @@
-package com.felix.agentweek1;
+package com.factorydata.pocketlab;
 
 import android.app.Activity;
 import android.graphics.Color;

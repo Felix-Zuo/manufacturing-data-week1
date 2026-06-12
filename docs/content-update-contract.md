@@ -6,9 +6,9 @@ The app reads course data from JavaScript assets under:
 app/src/main/assets/
 ```
 
-The current week is registered in `content-week1.js` through `window.COURSE_LIBRARY`.
+The current module is registered in `content-library.js` through `window.COURSE_LIBRARY`.
 
-## Week Payload
+## Module Payload
 
 Each week payload should include:
 
@@ -57,9 +57,9 @@ Each section can include:
 - `checkpoint`
 - `code`
 
-## Adding a Future Week
+## Adding Future Content
 
-1. Add a new asset file, for example `content-week2.js`.
-2. Append the week object to `window.COURSE_LIBRARY.weeks`.
-3. Update `currentWeekId` when the packaged app should open the new week by default.
+1. Add a new asset file or extend `content-library.js`.
+2. Append the module object to `window.COURSE_LIBRARY.weeks`.
+3. Update `currentWeekId` when the packaged app should open a new module by default.
 4. Keep paragraph and lesson ids stable after release so saved notes can still point to the same content.

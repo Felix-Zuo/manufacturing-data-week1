@@ -1,18 +1,18 @@
-# Manufacturing Data Week 1
+# Factory Data Pocket Lab
 
-Android course app for the first week of manufacturing data modeling.
+Android pocket lab for manufacturing data modeling, traceability, and operations analysis concepts.
+
+The project is packaged as a small offline WebView app. It is intentionally generic: all examples use synthetic factory data concepts and do not include personal learning records, private company data, or job-search material.
 
 ## Contents
 
-- Eight-week learning roadmap
-- Seven-day database modeling course
-- Manufacturing, Agent, API, RAG, async-task and reliability glossary
-- Bilingual reading and per-lesson English review
-- Portfolio improvement notes
-- Interview answer bank
-- Local vocabulary list
+- Manufacturing data-modeling walkthrough
+- BOM, inventory, supplier, lot, routing, and source-reference examples
+- Manufacturing, API, RAG, async-task, and reliability glossary
+- Bilingual reading material
+- Local vocabulary list and personal notes
 - Paragraph bookmarks and notes
-- Content structure for future weeks
+- Content structure for future modules
 
 ## Build
 
@@ -31,7 +31,7 @@ app\build\outputs\apk\debug\app-debug.apk
 Course data lives in:
 
 ```text
-app/src/main/assets/content-week1.js
+app/src/main/assets/content-library.js
 ```
 
-Future weeks can follow the same schema and register another week payload in the asset bundle.
+Future modules can follow the same schema and register another payload in the asset bundle.
